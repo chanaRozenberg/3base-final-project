@@ -1,6 +1,5 @@
 const letters = 'abcdefghijklmnopqrstuvwxyz';
 
-
 const types = ['Basic', 'Seasonal' ,'Unlimited'];
 
 const createString = () =>{
@@ -22,7 +21,7 @@ const createDate = () =>{
     const day = Math.floor(Math.random() * 30 + 1);
     const month = Math.floor(Math.random() * 12 + 1);
     const year = Math.floor(Math.random() * 25 + 2000);
-    return new Date(day, month, year);
+    return new Date(year, month, day);
 }
 
 const createNumber = () =>{

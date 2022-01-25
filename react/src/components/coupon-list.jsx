@@ -39,19 +39,24 @@ export default function CouponList() {
             method: 'DELETE',
         })
         .then(response => response.json())
-        // .then(_ => {
-        //     setCoupons(coupons.filter(({ _id }) => id !== _id))
-        // })
         .then(getCouponList())
     }
 
+    const convertDate = (date) => {
+        console.log(date)
+        console.log(typeof date)
+        const d = date.toString().split('-')
+        d[2].slice(0, 2)
+        console.log(d[2]);
+        // var s=[]
+        // s.push(l[0])
+        // s.push(l[1])
+        // s.push(l[2])
+        // console.log(s)
+    }
+
     return (
-        <div 
-        // onClick={() =>{
-        //     setStart(start + 12)
-        //     getCouponList()
-        // }}
-        >
+        <div>
             {edit && <Edit coupon={couponToEdit} setEditToFalse={setEditToFalse} /> }
             {!clicked &&
                 <button type="button" className="btn btn-light" onClick={() => {
@@ -91,8 +96,8 @@ export default function CouponList() {
                                             onChange={() => coupon.checked = !coupon.checked} /></td>
                                         <td>{coupon.couponName}</td>
                                         <td>{coupon.type}</td>
-                                        <td>{coupon.startDate}</td>
-                                        <td>{coupon.endDate}</td>
+                                        <td>{new Date(coupon.startDate).toLocaleDateString()}</td>
+                                        <td>{new Date(coupon.endDate).toLocaleDateString()}</td>
                                         <td>{coupon.discountAmount}</td>
                                         <td>{coupon.userGroupName}</td>
                                         <td><button type="button" className="btn btn-light" onClick={() => {

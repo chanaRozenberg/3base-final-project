@@ -1,4 +1,6 @@
 const letters = 'abcdefghijklmnopqrstuvwxyz';
+
+
 const types = ['Basic', 'Seasonal' ,'Unlimited'];
 
 const createString = () =>{

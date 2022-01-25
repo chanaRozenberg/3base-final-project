@@ -11,7 +11,7 @@ export default function CouponList() {
     const [start, setStart] = useState(0)
 
     const setEditToFalse = (coupon) => {
-        editCoupon(coupon._id)
+        editCoupon(coupon)
         setCoupons(coupons.map((c) => c._id === coupon._id ? coupon : c))
         setEdit(false)
     }
@@ -25,9 +25,11 @@ export default function CouponList() {
         })
     }
 
-    const editCoupon = (id) => {
-        return fetch(`http://localhost:5050/coupon/${id}`, {
+    const editCoupon = (coupon) => {
+        return fetch(`http://localhost:5050/coupon/${coupon._id}`, {
             method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(coupon),
         })
         .then(response => response.json())
     }

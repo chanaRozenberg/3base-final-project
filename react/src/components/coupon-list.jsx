@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../bootstrap.min.css';
 import Edit from './edit';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 export default function CouponList() {
 
@@ -9,6 +10,7 @@ export default function CouponList() {
     const [edit, setEdit] = useState(false)
     const [couponToEdit, setCouponToEdit] = useState(null)
     const [start, setStart] = useState(0)
+    //const isDeleted = false
 
     const setEditToFalse = (coupon) => {
         editCoupon(coupon)
@@ -42,17 +44,11 @@ export default function CouponList() {
         .then(getCouponList())
     }
 
-    const convertDate = (date) => {
-        console.log(date)
-        console.log(typeof date)
-        const d = date.toString().split('-')
-        d[2].slice(0, 2)
-        console.log(d[2]);
-        // var s=[]
-        // s.push(l[0])
-        // s.push(l[1])
-        // s.push(l[2])
-        // console.log(s)
+    const scrollBottom = () => {
+        console.log("ffff");
+        setStart(start+10)
+        console.log(start);
+        getCouponList()
     }
 
     return (
@@ -71,7 +67,12 @@ export default function CouponList() {
                     : null}
                 {coupons &&
                     <div>
-                        <table className="table">
+                        <InfiniteScroll
+                            dataLength={coupons.length}
+                            next={scrollBottom}
+                            hasMore={true}
+                        >
+                        {<table className="table">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
@@ -113,7 +114,8 @@ export default function CouponList() {
                                 )
                                 )}
                             </tbody>
-                        </table>
+                        </table>}
+                        </InfiniteScroll>
                         <footer className="text-center">
                             <button type="btn btn-light" onClick={() => {
                                 coupons.forEach(c => c.checked && (deleteCoupon(c._id)))

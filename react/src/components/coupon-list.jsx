@@ -18,16 +18,11 @@ export default function CouponList() {
     }
 
     const getCouponList = () => {
-        debugger;
         setClicked(true)
         return fetch(`http://localhost:5050/coupon/${start}`)
             .then(c => c.json())
             .then(c => {
                 setCoupons(c)
-            })
-            .then(_ => {
-                setStart(start + 10)
-                console.log(start)
             })
     }
 
@@ -44,14 +39,17 @@ export default function CouponList() {
         return fetch(`http://localhost:5050/coupon/${id}`, {
             method: 'DELETE',
         })
-            .then(response => response.json())
-            .then(getCouponList())
+        .then(response => response.json())
+        .then(getCouponList())
     }
 
     const scrollBottom = () => {
-        console.log("ffff");
         setStart(start + 10)
-        console.log(start);
+        getCouponList()
+    }
+
+    const scrollUp = () => {
+        setStart(start - 10)
         getCouponList()
     }
 
@@ -65,18 +63,17 @@ export default function CouponList() {
             }
 
             <div>
-                {clicked && !coupons ?
+                {clicked && !coupons &&
                     <div>load....
                     </div>
-                    : null}
+                }
                 {coupons &&
                     <div>
                         <InfiniteScroll
                             dataLength={start}
-                            //next={scrollBottom}
-                            next={getCouponList}
+                            next={scrollBottom}
+                            prev={scrollUp}
                             hasMore={true}
-                        //inverse={true}
                         >
                             {<table className="table">
                                 <thead>

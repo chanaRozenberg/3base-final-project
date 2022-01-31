@@ -4,7 +4,6 @@ const couponModel = require('../models/coupon');
 const getData = require('./../getData/getData')
 
 router.get('/:strart' , async (request, response) => {
-    //const coupons = await couponModel.paginate({},{offset: 0, limit: parseInt(request.params.strart) + 20})
     try{
         const coupons = await couponModel.find().skip(parseInt(request.params.strart)).limit(20)
         response.send(coupons);
